@@ -16,7 +16,6 @@ while k != 0:
     j += 1
     k -= 1
 result.append(f'{randint(0, 100)} = 0')
-print(result)
 with open('file.txt', 'w') as data:
     data.writelines(''.join(result))
 
