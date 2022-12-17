@@ -59,6 +59,7 @@ def Volume_of_sweets(msg='Укажите количество конфет: '):
                       f'\n Все конфеты оппонента достаются сделавшему последний ход.')
     return volume_of_sweets
 
+
 while True:
     while True:
         mode = input('Выберите режим. '
@@ -89,7 +90,7 @@ while True:
             while True:
                 try:
                     players[i] = int(input(f'\n Игрок {i + 1}, Ваш ход: '))
-                    if (players[i] >= 1 or players[i] <= 28) and players[i] <= volume_of_sweets:
+                    if players[i] >= 1 and players[i] <= 28 and players[i] <= volume_of_sweets:
                         Declination_check(players[i],
                                           f'    Игрок {i + 1} взял {players[i]} конфет.',
                                           f'    Игрок {i + 1} взял {players[i]} конфету.',
@@ -135,12 +136,21 @@ while True:
         print(f'\n Жеребьевкой выбран игрок {i + 1}')
         while volume_of_sweets != 0:
             while True:
-                if players[i] == 1:
-                    players[i] = randint(1, 28)
+                if i == 1:
+                    print('\n Ходит Игрок 2: ')
+                    if volume_of_sweets > 28:
+                        players[i] = randint(1, 28)
+                    else:
+                        players[i] = randint(1, volume_of_sweets)
+                    Declination_check(players[i],
+                                      f'    Игрок {i + 1} взял {players[i]} конфет.',
+                                      f'    Игрок {i + 1} взял {players[i]} конфету.',
+                                      f'    Игрок {i + 1} взял {players[i]} конфеты.',
+                                      f'    Игрок {i + 1} взял {players[i]} конфет.')
                     break
                 try:
                     players[i] = int(input(f'\n Игрок {i + 1}, Ваш ход: '))
-                    if (players[i] >= 1 or players[i] <= 28) and players[i] <= volume_of_sweets:
+                    if players[i] >= 1 and players[i] <= 28 and players[i] <= volume_of_sweets:
                         Declination_check(players[i],
                                           f'    Игрок {i + 1} взял {players[i]} конфет.',
                                           f'    Игрок {i + 1} взял {players[i]} конфету.',
@@ -153,19 +163,83 @@ while True:
                         print(f'Вы пытаетесь взять больше, чем осталось. Попробуйте ещё раз.')
                 except ValueError:
                     print(f'Вы ввели не число. Попробуйте ещё раз.')
-        volume_of_sweets -= players[i]
-        Declination_check(volume_of_sweets,
-                          f'    Осталось {volume_of_sweets} конфет.',
-                          f'    Осталась {volume_of_sweets} конфета.',
-                          f'    Осталось {volume_of_sweets} конфеты.',
-                          f'    Осталось {volume_of_sweets} конфет.')
-        if volume_of_sweets <= 0:
-            print(f'Победил Игрок {i + 1}. Все конфеты достаются ему. Поздравляем!')
+            volume_of_sweets -= players[i]
+            Declination_check(volume_of_sweets,
+                              f'    Осталось {volume_of_sweets} конфет.',
+                              f'    Осталась {volume_of_sweets} конфета.',
+                              f'    Осталось {volume_of_sweets} конфеты.',
+                              f'    Осталось {volume_of_sweets} конфет.')
+            if volume_of_sweets <= 0:
+                print(f'Победил Игрок {i + 1}. Все конфеты достаются ему. Поздравляем!')
+                break
+            if i == 1:
+                i -= 1
+            else:
+                i += 1
+        while True:
+            new_game = input('\n Хотите сыграть ещё раз?'
+                             '\n Введите Y или N: ')
+            if new_game.lower() == 'n' or new_game.lower() == 'т':
+                print('Очень жаль. До встречи в следующий раз!')
+                break
+            elif new_game == 'y' or new_game == 'н':
+                break
+            else:
+                print(f'Вы ввели {new_game}. Попробуйте ещё раз.')
+        if new_game.lower() == 'n' or new_game.lower() == 'т':
             break
-        if i == 1:
-            i -= 1
-        else:
-            i += 1
+        elif new_game == 'y' or new_game == 'н':
+            print()
+
+    if mode == str(3):
+        input('\n Нажмите Enter для продолжения')
+        print(f'\n Жеребьевкой выбран игрок {i + 1}')
+        while volume_of_sweets != 0:
+            while True:
+                if i == 1:
+                    print('\n Ходит Игрок 2: ')
+                    if volume_of_sweets <= 28:
+                        players[i] = volume_of_sweets
+                    elif volume_of_sweets > 28:
+                        players[i] = volume_of_sweets % 29
+                        if players[i] == 0:
+                            players[i] += 1
+                    else:
+                        players[i] = randint(1, volume_of_sweets)
+                    Declination_check(players[i],
+                                      f'    Игрок {i + 1} взял {players[i]} конфет.',
+                                      f'    Игрок {i + 1} взял {players[i]} конфету.',
+                                      f'    Игрок {i + 1} взял {players[i]} конфеты.',
+                                      f'    Игрок {i + 1} взял {players[i]} конфет.')
+                    break
+                try:
+                    players[i] = int(input(f'\n Игрок {i + 1}, Ваш ход: '))
+                    if players[i] >= 1 and players[i] <= 28 and players[i] <= volume_of_sweets:
+                        Declination_check(players[i],
+                                          f'    Игрок {i + 1} взял {players[i]} конфет.',
+                                          f'    Игрок {i + 1} взял {players[i]} конфету.',
+                                          f'    Игрок {i + 1} взял {players[i]} конфеты.',
+                                          f'    Игрок {i + 1} взял {players[i]} конфет.')
+                        break
+                    elif players[i] > 28:
+                        print('Нельзя брать больше 28! Попробуйте ещё раз.')
+                    elif players[i] > volume_of_sweets and players[i] <= 28:
+                        print(f'Вы пытаетесь взять больше, чем осталось. Попробуйте ещё раз.')
+                except ValueError:
+                    print(f'Вы ввели не число. Попробуйте ещё раз.')
+            volume_of_sweets -= players[i]
+            Declination_check(volume_of_sweets,
+                              f'    Осталось {volume_of_sweets} конфет.',
+                              f'    Осталась {volume_of_sweets} конфета.',
+                              f'    Осталось {volume_of_sweets} конфеты.',
+                              f'    Осталось {volume_of_sweets} конфет.')
+            if volume_of_sweets <= 0:
+                print(f'Победил Игрок {i + 1}. Все конфеты достаются ему. Поздравляем!')
+                break
+            if i == 1:
+                i -= 1
+            else:
+                i += 1
         while True:
             new_game = input('\n Хотите сыграть ещё раз?'
                              '\n Введите Y или N: ')
