@@ -5,8 +5,8 @@
 # 1 + 1 * 3 = > 4;
 # 1 - 2 * 3 = > -5.
 
-print(eval('2 + 2 * 2'))
-print(eval('2 * 3 / 6'))
+# print(eval('2 + 2 * 2'))
+# print(eval('2 * 3 / 6'))
 
 expression = '2 + 2'
 exprsn_lst = expression.split()
