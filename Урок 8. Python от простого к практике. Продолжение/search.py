@@ -1,3 +1,0 @@
-def find(data):
-
-    return
